@@ -2,17 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-
-// Member Routes
-import MemberLogin from "./pages/member/Login";
+import LoginPage from "./components/LoginPage";
 import MemberRegister from "./pages/member/Register";
 import MemberDashboard from "./pages/member/Dashboard";
-
-// Admin Routes
-import BlockLogin from "./pages/admin/BlockLogin";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ApplicationView from "./pages/admin/ApplicationView";
 import SuperAdminGenerate from "./pages/admin/SuperAdminGenerate";
@@ -26,16 +21,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<MemberRegister />} />
+
           {/* Member Routes */}
-          <Route path="/member/login" element={<MemberLogin />} />
-          <Route path="/member/register" element={<MemberRegister />} />
           <Route path="/member/dashboard" element={<MemberDashboard />} />
           
           {/* Admin Routes */}
-          <Route path="/admin/block/login" element={<BlockLogin />} />
-          <Route path="/admin/block/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/application/:id" element={<ApplicationView />} />
           
           {/* Super Admin Routes */}
