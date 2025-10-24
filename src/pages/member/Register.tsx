@@ -55,181 +55,145 @@ const MemberRegister = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl shadow-strong gradient-card border-0">
-        <CardHeader className="space-y-2 text-center">
-          <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-2">
-            <UserPlus className="w-10 h-10 text-primary-foreground" />
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[url('/assets/gradient-bg.png')] bg-cover bg-center">
+      <div className="w-full max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* Left column - Title and progress (visible on all sizes but styled differently) */}
+          <div className="w-full lg:w-auto">
+            <div className="text-center lg:text-left mb-6 lg:mb-0">
+              <div className="mx-auto lg:mx-0 w-16 h-16 lg:w-20 lg:h-20 bg-primary rounded-full flex items-center justify-center mb-4 lg:mb-6">
+                <UserPlus className="w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground" />
+              </div>
+              <h2 className="text-2xl lg:text-4xl font-bold mb-1">Member Registration</h2>
+              <p className="text-muted-foreground mb-3 text-sm lg:text-base">Step {step} of 2</p>
+
+              <div className="w-full max-w-md mx-auto lg:mx-0 bg-white/30 rounded-full h-2 mb-3">
+                <div className={`h-2 rounded-full bg-blue-600`} style={{ width: step === 1 ? '45%' : '100%' }} />
+              </div>
+
+              <div className="flex gap-4 justify-center lg:justify-start text-sm lg:text-sm text-blue-600">
+                <div className={`flex items-center gap-2 ${step === 1 ? 'font-semibold' : 'text-gray-500'}`}>
+                  <span className="w-4 h-4 bg-blue-100 rounded-full flex items-center justify-center">•</span>
+                  <span>Personal Info</span>
+                </div>
+                <div className={`flex items-center gap-2 ${step === 2 ? 'font-semibold' : 'text-gray-500'}`}>
+                  <span className="w-4 h-4 bg-blue-100 rounded-full flex items-center justify-center">•</span>
+                  <span>Location</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <CardTitle className="text-3xl font-bold">New Member Registration</CardTitle>
-          <CardDescription>Step {step} of 2 - {step === 1 ? "Contact Details" : "Login Details"}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {step === 1 ? (
-            <form onSubmit={handleStep1Submit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name *</Label>
-                  <Input
-                    id="firstName"
-                    placeholder="First name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="middleName">Middle Name</Label>
-                  <Input
-                    id="middleName"
-                    placeholder="Middle name"
-                    value={middleName}
-                    onChange={(e) => setMiddleName(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name *</Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Last name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="mobile">Mobile Number *</Label>
-                  <Input
-                    id="mobile"
-                    type="tel"
-                    placeholder="10-digit mobile number"
-                    value={mobile}
-                    onChange={(e) => setMobile(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
+          {/* Right column - Card with form */}
+          <div>
+            <Card className="w-full shadow-strong border-0">
+              <CardHeader className="space-y-2 text-left">
+                <CardTitle className="text-2xl font-bold">Registration Form</CardTitle>
+                <CardDescription className="text-sm text-gray-500">Please provide accurate information</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {step === 1 ? (
+                  <form onSubmit={handleStep1Submit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName">Full Name*</Label>
+                        <Input id="firstName" placeholder="Enter your full name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="mobile">Phone Number*</Label>
+                        <Input id="mobile" placeholder="+91 XXXXXX XXXXX" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+                      </div>
+                    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="gender">Gender *</Label>
-                  <Select value={gender} onValueChange={setGender} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="dob">Date of Birth *</Label>
-                  <Input
-                    id="dob"
-                    type="date"
-                    value={dob}
-                    onChange={(e) => setDob(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address*</Label>
+                      <Input id="email" type="email" placeholder="your.email@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    </div>
 
-              <Button type="submit" className="w-full" size="lg">
-                Next Step
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </form>
-          ) : (
-            <form onSubmit={handleStep2Submit} className="space-y-6">
-              <div className="flex flex-col items-center space-y-4">
-                <Avatar className="w-32 h-32">
-                  <AvatarImage src={profilePicture} />
-                  <AvatarFallback className="bg-primary text-primary-foreground text-3xl">
-                    {firstName.charAt(0)}{lastName.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="relative">
-                  <Input
-                    id="profilePicture"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                  <Label htmlFor="profilePicture" className="cursor-pointer">
-                    <Button type="button" variant="outline" asChild>
-                      <span>
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload Profile Picture
-                      </span>
-                    </Button>
-                  </Label>
-                </div>
-              </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="dob">Date of Birth*</Label>
+                        <Input id="dob" type="date" value={dob} onChange={(e) => setDob(e.target.value)} required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="gender">Gender*</Label>
+                        <Select value={gender} onValueChange={setGender} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select gender" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="male">Male</SelectItem>
+                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="memberId">Member ID *</Label>
-                <Input
-                  id="memberId"
-                  placeholder="Create your member ID"
-                  value={memberId}
-                  onChange={(e) => setMemberId(e.target.value)}
-                  required
-                />
-              </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input id="password" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="confirmPassword">Confirm Password</Label>
+                        <Input id="confirmPassword" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                      </div>
+                    </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password *</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Create a strong password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
+                    <div className="flex justify-end">
+                      <Button type="submit" className="bg-blue-600 text-white">Next</Button>
+                    </div>
+                  </form>
+                ) : (
+                  <form onSubmit={handleStep2Submit} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="state">State*</Label>
+                      <Select value={memberId} onValueChange={setMemberId}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select state" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="state1">State 1</SelectItem>
+                          <SelectItem value="state2">State 2</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password *</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="Re-enter your password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="district">District*</Label>
+                      <Select value={memberId} onValueChange={setMemberId}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select district" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="district1">District 1</SelectItem>
+                          <SelectItem value="district2">District 2</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-              <div className="flex gap-4">
-                <Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1">
-                  Back
-                </Button>
-                <Button type="submit" className="flex-1" size="lg">
-                  Register
-                </Button>
-              </div>
-            </form>
-          )}
-        </CardContent>
-      </Card>
+                    <div className="space-y-2">
+                      <Label htmlFor="block">Block*</Label>
+                      <Input id="block" placeholder="Block" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="address">Complete Address*</Label>
+                      <Input id="address" placeholder="Complete address" />
+                    </div>
+
+                    <div className="flex justify-between">
+                      <Button type="button" variant="outline" onClick={() => setStep(1)}>Previous</Button>
+                      <Button type="submit" className="bg-blue-600 text-white">Submit</Button>
+                    </div>
+                  </form>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
